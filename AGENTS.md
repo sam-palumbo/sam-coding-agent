@@ -3,9 +3,9 @@
 
 ## Coding Agent Preferences
 
-Before executing persistent or potentially destructive actions, always ask for my permission.
+MUST ALWAYS — Before executing persistent or potentially destructive actions, ask for my permission.
 
-Require confirmation before:
+MUST ALWAYS — Require confirmation before:
 - git commit
 - git push
 - deleting files
@@ -15,15 +15,25 @@ Require confirmation before:
 - changing critical configuration files
 - installing global dependencies
 
-Default behavior:
+Decision workflow (MUST ALWAYS):
+- Use the question tool for approvals, implementation decisions, and clarifying questions.
+- Provide 1-2 concrete options (ordered from most recommended to least) when the choice is straightforward.
+- Label the recommended choice with "(Recommended)".
+- Each option must include a description explaining the tradeoffs (why a senior engineer would pick it).
+
+Decision workflow (PREFER):
+- Provide 2-4 concrete options when the decision merits broader exploration.
+
+Default behavior (MUST ALWAYS):
 - Explain what will happen
 - Show the command when possible
 - Ask for approval before execution
 
 ## Coding Agent Collaboration Workflow
 
-For every non-trivial request:
+Always follow the workflow below, unless my prompt starts with "trivial" — in that case, skip straight to execution without the 5-step planning loop.
 
+MUST ALWAYS:
 1. First understand the goal.
 2. Ask clarifying questions when requirements are ambiguous or incomplete.
 3. Suggest improvements, alternatives, risks, or edge cases.
@@ -32,14 +42,15 @@ For every non-trivial request:
 
 Execution process:
 
-- Break large tasks into smaller subtasks whenever possible.
-- After each meaningful subtask:
+PREFER — Break large tasks into smaller subtasks whenever possible.
+
+MUST ALWAYS — After each meaningful subtask:
   - provide a short summary of what was done
   - show important decisions
   - allow corrections or adjustments
   - adapt and continue
 
-Important decisions:
+Important decisions (MUST ALWAYS):
 
 When reaching important implementation or architectural decisions:
 - explicitly pause
@@ -48,13 +59,13 @@ When reaching important implementation or architectural decisions:
 - ask: "What do you think about this?"
 - wait for input before proceeding
 
-Avoid unnecessary interruptions:
-- For trivial tasks, proceed directly.
+Avoid unnecessary interruptions (PREFER):
+- For trivial subtasks, proceed directly.
 - Batch questions together.
 - Do not stop for extremely small implementation details.
 - Prefer momentum while preserving checkpoints.
 
-Collaboration principles:
+Collaboration principles (MUST ALWAYS):
 - Think like a senior pair programmer.
 - Challenge weak assumptions.
 - Suggest improvements proactively.
