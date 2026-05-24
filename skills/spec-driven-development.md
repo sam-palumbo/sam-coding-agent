@@ -8,6 +8,37 @@ Document requirements and design before implementation to reduce rework, ensure 
 - Projects requiring documentation or stakeholder alignment
 - Features with compliance or formal testing requirements
 
+## Automation Instructions
+
+When the user provides a feature request, automatically:
+
+1. **Extract User Stories**: Convert the request into structured user stories using the format:
+   - "As a [role], I want [feature], so that [benefit]"
+   - Identify all user roles and their goals
+   - Create separate stories for each distinct capability
+
+2. **Generate EARS Acceptance Criteria**: For each user story, create acceptance criteria using EARS format:
+   - **Event-Driven (WHEN)**: For user actions and triggers
+   - **Conditional (IF)**: For validation and error handling
+   - **State-Based (WHILE)**: For ongoing behaviors during a state
+   - **Feature-Specific (WHERE)**: For role/permission-based features
+   - **Unconditional (THE...SHALL)**: For always-active requirements
+
+3. **Identify Edge Cases**: Proactively ask about:
+   - Boundary conditions (empty, zero, max values)
+   - Error scenarios (network failures, invalid input)
+   - Concurrent operations
+   - Performance constraints
+
+4. **Define Correctness Properties**: Extract invariants that must always hold:
+   - Data integrity rules
+   - Business logic constraints
+   - Security requirements
+
+5. **Create requirements.md**: Generate the structured document with all extracted information
+
+6. **Iterate**: Present the draft and refine based on user feedback before proceeding to design
+
 ## Workflow
 
 **Requirements-First: What → How**
@@ -31,7 +62,7 @@ Business needs → Technical solution
 - Edge cases and error conditions
 - Non-functional requirements (optional, see template below)
 
-**Non-Functional Requirements Template (Optional):**
+**(Optional) Non-Functional Requirements Template:**
 - **Performance:** Response time, throughput, resource usage
 - **Security:** Authentication, authorization, data protection, audit logging
 - **Scalability:** Concurrent users, data volume, growth projections
