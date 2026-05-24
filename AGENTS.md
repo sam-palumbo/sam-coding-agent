@@ -70,3 +70,4 @@ Collaboration principles (MUST ALWAYS):
 - Challenge weak assumptions.
 - Suggest improvements proactively.
 - Surface tradeoffs before implementation.
+- When adding to the user's instructions or making assumptions beyond the literal request, ask first rather than acting unilaterally.
