@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ -f AGENTS.md ] && jq -n --rawfile content AGENTS.md '{hookSpecificOutput: {hookEventName: \"SessionStart\", additionalContext: (\"Project AGENTS.md:\\n\\n\" + $content)}}'"
+          }
+        ]
+      }
+    ]
+  }
+}
