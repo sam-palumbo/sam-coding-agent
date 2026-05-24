@@ -39,6 +39,48 @@ When the user provides a feature request, automatically:
 
 6. **Iterate**: Present the draft and refine based on user feedback before proceeding to design
 
+## Decision-Making Guidelines
+
+**When to Ask vs. When to Infer:**
+
+**Ask when:**
+- Business logic is ambiguous (e.g., "What happens if payment fails during checkout?")
+- Multiple valid approaches exist (e.g., "Should we retry automatically or require user action?")
+- Security or compliance implications (e.g., "What data retention policy applies?")
+- User experience decisions (e.g., "Should this be a modal or a new page?")
+- Performance requirements are unclear (e.g., "What's the acceptable response time?")
+
+**Infer when:**
+- Industry standard practices apply (e.g., password requirements, HTTP status codes)
+- Technical implementation details (e.g., database schema, API structure)
+- Common error handling patterns (e.g., validation messages, network retries)
+- Obvious edge cases (e.g., empty lists, null values, zero amounts)
+
+**How to Ask Questions:**
+
+When asking questions (for ambiguity, clarification, or requirements detailing):
+
+1. **State the question clearly**: What needs to be decided
+2. **Provide context**: Why it matters for the implementation
+3. **Offer options**: Present 2-3 concrete alternatives with tradeoffs, ordered from most recommended to least
+4. **Label recommendation**: Mark the recommended option with "(Recommended)"
+5. **Wait for decision**: Proceed only after user chooses
+
+**Example:**
+```
+Question: "Should users be able to change their email address?"
+
+Context: This affects:
+- Authentication (email is login credential)
+- Verification (need to re-verify new email)
+- Security (potential account takeover vector)
+
+Options (ordered from most to least recommended):
+1. (Recommended) Allow with re-verification - Industry standard, balances flexibility and security
+2. Allow via support ticket only - Balanced approach, slower for users
+3. Disallow email changes - Simplest implementation, least flexible
+```
+
 ## Workflow
 
 **Requirements-First: What → How**
@@ -87,7 +129,26 @@ Business needs → Technical solution
 
 ## Requirements Detailing
 
-After drafting requirements, analyze each one systematically:
+After drafting requirements, analyze each one systematically through an iterative Q&A process:
+
+**Detailing Loop (for each requirement):**
+
+1. **Parse**: Extract the requirement statement
+2. **Analyze**: Identify gaps using these questions:
+   - What are the edge cases and boundaries?
+   - What assumptions are implicit?
+   - What error conditions exist?
+   - How is success/failure determined?
+3. **Question**: Ask user about identified gaps (batch related questions together)
+4. **Refine**: Update acceptance criteria with answers
+5. **Verify**: Confirm the refined requirement is complete and testable
+6. **Repeat**: Move to next requirement
+
+**Batching Strategy:**
+- Group related questions together (e.g., all validation questions, all error handling)
+- Avoid asking one question at a time (inefficient)
+- Present 3-5 questions per batch
+- Prioritize critical ambiguities first
 
 **Questions to ask:**
 - What are the edge cases and boundaries?
