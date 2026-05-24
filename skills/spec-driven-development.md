@@ -276,6 +276,54 @@ specs/{feature-name}/
 - Update dependent documents when requirements or design changes
 - Maintain consistency across all documents
 
+## Change Management
+
+**When Requirements Change Mid-Implementation:**
+
+1. **Assess Impact:**
+   - Which tasks are affected (completed, in-progress, not-started)?
+   - Does the design need updates?
+   - Are there new edge cases or correctness properties?
+
+2. **Update Documents:**
+   - Update requirements.md with changes (mark with version/date if needed)
+   - Update design.md if architecture or approach changes
+   - Regenerate tasks.md for affected areas
+
+3. **Handle In-Progress Work:**
+   - **Completed tasks**: Leave as-is unless change invalidates them
+   - **In-progress tasks**: Pause, reassess, update acceptance criteria
+   - **Not-started tasks**: Update before starting
+
+4. **Communicate Changes:**
+   - Document what changed and why
+   - Notify stakeholders of impact (timeline, scope)
+   - Get approval for significant changes
+
+5. **Update Tests:**
+   - Modify existing tests to reflect new requirements
+   - Add new tests for new functionality
+   - Remove tests for removed functionality
+
+**Change Categories:**
+
+- **Minor (proceed immediately)**: Clarifications, small refinements, bug fixes
+- **Moderate (update and continue)**: New edge cases, modified acceptance criteria, additional validation
+- **Major (pause and replan)**: New features, changed architecture, different approach
+
+**Example:**
+```
+Change: "Users should be able to filter by date range, not just single date"
+
+Impact:
+- Requirements: Update acceptance criteria for filtering
+- Design: Modify API to accept start/end dates
+- Tasks: Update "Implement date filter" task
+- Tests: Update filter tests with range scenarios
+
+Action: Moderate change - update documents and continue
+```
+
 ## Review Checkpoints
 
 **After Requirements Phase:**
