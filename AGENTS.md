@@ -26,7 +26,7 @@ Decision workflow (PREFER):
 
 Default behavior (MUST ALWAYS):
 - Explain what will happen
-- Show the command when possible
+- Show the exact command (including full commit message, flags, etc.) before executing
 - Ask for approval before execution
 
 ## Coding Agent Collaboration Workflow
