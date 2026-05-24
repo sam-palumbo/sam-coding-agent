@@ -29,7 +29,16 @@ Business needs → Technical solution
 - Acceptance criteria (EARS format: WHEN, IF, THEN, THE, SHALL)
 - Correctness properties for testing
 - Edge cases and error conditions
-- Non-functional requirements
+- Non-functional requirements (optional, see template below)
+
+**Non-Functional Requirements Template (Optional):**
+- **Performance:** Response time, throughput, resource usage
+- **Security:** Authentication, authorization, data protection, audit logging
+- **Scalability:** Concurrent users, data volume, growth projections
+- **Reliability:** Uptime, error rates, recovery time
+- **Accessibility:** WCAG compliance level, keyboard navigation, screen reader support
+- **Maintainability:** Code quality standards, documentation requirements
+- **Compatibility:** Browsers, devices, operating systems, API versions
 
 ### design.md
 - Architecture and components
@@ -172,6 +181,37 @@ specs/{feature-name}/
 **Updates:**
 - Update dependent documents when requirements or design changes
 - Maintain consistency across all documents
+
+## Review Checkpoints
+
+**After Requirements Phase:**
+- [ ] All user stories follow "As a [role], I want [feature], so that [benefit]" format
+- [ ] All acceptance criteria use EARS format
+- [ ] Edge cases and error conditions documented
+- [ ] Correctness properties defined
+- [ ] Non-functional requirements specified (if applicable)
+- [ ] Stakeholders have reviewed and approved
+
+**After Design Phase:**
+- [ ] Architecture addresses all requirements
+- [ ] Technology choices justified
+- [ ] Testing strategy defined with coverage targets
+- [ ] Migration/deployment plan documented
+- [ ] Design reviewed by technical lead
+
+**After Tasks Phase:**
+- [ ] Task dependency graph is clear and correct
+- [ ] Each task includes implementation + tests
+- [ ] Tasks are appropriately sized (1-4 hours each)
+- [ ] Acceptance criteria defined for each task
+
+**After Each Task:**
+- [ ] Implementation complete
+- [ ] All tests written and passing
+- [ ] Edge cases covered
+- [ ] Property tests passing (if applicable)
+- [ ] Code reviewed
+- [ ] Documentation updated
 
 ## Common Pitfalls
 
