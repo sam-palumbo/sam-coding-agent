@@ -66,6 +66,8 @@ When asking questions (for ambiguity, clarification, or requirements detailing):
 4. **Label recommendation**: Mark the recommended option with "(Recommended)"
 5. **Wait for decision**: Proceed only after user chooses
 
+**Implementation Note:** Use interactive prompts or structured choice mechanisms when available (e.g., numbered options, selection menus) to make it easy for users to respond.
+
 **Example:**
 ```
 Question: "Should users be able to change their email address?"
