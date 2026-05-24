@@ -152,12 +152,6 @@ After drafting requirements, analyze each one systematically through an iterativ
 - Present 3-5 questions per batch
 - Prioritize critical ambiguities first
 
-**Questions to ask:**
-- What are the edge cases and boundaries?
-- What assumptions are implicit?
-- What error conditions exist?
-- How is success/failure determined?
-
 **EARS Format (Easy Approach to Requirements Syntax):**
 
 EARS provides structured templates for writing clear, testable requirements:
@@ -208,6 +202,13 @@ Define formal correctness properties that must always hold:
 Property: "User balance never goes negative"
 ∀ transaction: balance_after(transaction) ≥ 0
 ```
+
+**Common PBT Frameworks:**
+- JavaScript/TypeScript: fast-check
+- Python: Hypothesis
+- Java: jqwik
+- Rust: proptest
+- Haskell: QuickCheck
 
 ## Test Coverage Requirements
 
@@ -362,14 +363,11 @@ Action: Moderate change - update documents and continue
 - Skipping requirements detailing
 - Starting implementation before design approval
 - Writing code without tests
-- Skipping edge case tests
 - Not maintaining tests when requirements change
 
 **Do:**
 - Make criteria testable and precise
-- Define properties for critical behaviors
 - Write tests for every task
 - Test all edge cases from requirements
 - Update tests when code changes
-- Review test coverage regularly
 
