@@ -72,50 +72,12 @@ When the user provides a feature request, you MUST automatically:
 
 ## Decision-Making: Ask vs. Infer
 
-**Decision Tree:**
+See [asking-questions.md](./asking-questions.md) for complete guidelines on when to ask vs. infer and how to structure questions.
 
-```
-Is the requirement clear and unambiguous?
-├─ NO → Ask user (follow "How to ask" below)
-└─ YES → Can you infer from industry standards?
-    ├─ YES → Infer and document assumption
-    └─ NO → Ask user (follow "How to ask" below)
-```
-
-**Ask when:**
-- Business logic is ambiguous (e.g., "What happens if payment fails mid-checkout?")
-- Multiple valid approaches exist (e.g., auto-retry vs. user action)
-- Security or compliance implications (e.g., data retention policy)
-- UX decisions (e.g., modal vs. new page)
-- Performance requirements unclear (e.g., acceptable latency)
-
-**Infer when:**
-- Industry standard practices apply (e.g., HTTP status codes, password rules)
-- Technical implementation details (e.g., schema, API structure)
-- Common error handling patterns (e.g., validation messages, retries)
-- Obvious edge cases (e.g., empty lists, nulls, zeros)
-
-**How to ask:**
-
-1. **State** the question clearly — what needs to be decided
-2. **Context** — why it matters for implementation
-3. **Options** — present 2–3 alternatives with tradeoffs, ordered most-recommended first
-4. **Label** the top choice with "(Recommended)"
-5. **Wait** — proceed only after the user chooses
-
-**Output format:**
-```
-Question: [Clear question]
-
-Context: [Why this matters]
-
-Options (most → least recommended):
-1. (Recommended) [Option] — [tradeoff explanation]
-2. [Option] — [tradeoff explanation]
-3. [Option] — [tradeoff explanation]
-```
-
-Use interactive prompts or structured choice mechanisms (numbered options, selection menus) when available.
+**Quick reference:**
+- Ask when: business logic ambiguous, multiple approaches, security/compliance, UX decisions
+- Infer when: industry standards, technical details, common patterns, obvious edge cases
+- Always batch 3-5 related questions together
 
 ## Document Structure
 

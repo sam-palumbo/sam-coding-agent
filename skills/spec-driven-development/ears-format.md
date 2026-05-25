@@ -31,28 +31,44 @@
 
 ## Requirements Detailing Loop
 
-After drafting, analyze each requirement systematically:
+After drafting requirements, you MUST analyze each requirement systematically:
 
-1. **Parse** — extract the requirement statement
-2. **Analyze** — identify gaps:
+1. **Parse** — Extract the requirement statement
+2. **Analyze** — Identify gaps by asking:
    - What are the edge cases and boundaries?
    - What assumptions are implicit?
    - What error conditions exist?
    - How is success/failure determined?
-3. **Question** — ask about identified gaps, batched
-4. **Refine** — update acceptance criteria with answers
-5. **Verify** — confirm the requirement is complete and testable
-6. **Repeat** — move to next requirement
+3. **Question** — Ask user about identified gaps (see [asking-questions.md](./asking-questions.md) for guidelines)
+4. **Refine** — Update acceptance criteria with user's answers
+5. **Verify** — Confirm the requirement is complete and testable
+6. **Repeat** — Move to next requirement
 
-**Batching:** group related questions (all validation together, all error handling together). Aim for 3–5 questions per batch. Prioritize critical ambiguities first.
+**Validation:** A requirement is complete when:
+- [ ] Uses EARS format
+- [ ] All edge cases identified
+- [ ] Error conditions specified
+- [ ] Success/failure criteria clear
+- [ ] Testable and measurable
 
 ## Property-Based Testing
 
-Define formal correctness properties that must always hold:
+You MUST define formal correctness properties for critical business logic.
 
+**Process:**
+1. Identify invariants that MUST always hold
+2. Express as formal property: `∀ input: condition(output) = true`
+3. Encode as executable test using PBT framework
+4. Run against many generated inputs
+
+**Example:**
 ```
 Property: "User balance never goes negative"
 ∀ transaction: balance_after(transaction) ≥ 0
 ```
 
-Use a property-based testing framework appropriate to your language (e.g., `fast-check`, `Hypothesis`) to encode each invariant as an executable test that runs against many generated inputs.
+**When to use:**
+- Data integrity constraints
+- Business rule invariants
+- Security properties
+- Mathematical properties

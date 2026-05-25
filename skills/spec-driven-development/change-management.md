@@ -12,30 +12,43 @@ Handling requirement changes mid-implementation without losing alignment between
 
 ## Process
 
+When requirements change mid-implementation, you MUST:
+
 1. **Assess impact**
    - Which tasks are affected (completed, in-progress, not-started)?
    - Does the design need updating?
    - Are there new edge cases or correctness properties?
 
-2. **Update documents**
+2. **Categorize change** (use table above)
+   - Minor → proceed immediately
+   - Moderate → update docs and continue
+   - Major → pause and replan
+
+3. **Update documents** (in this order)
    - `requirements.md` — record changes (mark with version/date if helpful)
    - `design.md` — only if architecture or approach changes
    - `tasks.md` — regenerate affected sections
 
-3. **Handle in-progress work**
+4. **Handle in-progress work**
    - **Completed tasks** — leave as-is unless the change invalidates them
    - **In-progress tasks** — pause, reassess, update acceptance criteria
    - **Not-started tasks** — update before starting
 
-4. **Communicate**
+5. **Communicate**
    - Document what changed and why
    - Notify stakeholders of impact on timeline and scope
    - Get approval for major changes
 
-5. **Update tests**
+6. **Update tests** (MUST be done)
    - Modify existing tests for new requirements
    - Add tests for new functionality
    - Remove tests for removed functionality
+
+**Validation:** Change is complete when:
+- [ ] All affected documents updated
+- [ ] Tests updated and passing
+- [ ] Stakeholders notified
+- [ ] Major changes approved
 
 ## Example
 
