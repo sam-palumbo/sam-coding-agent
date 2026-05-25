@@ -23,21 +23,23 @@ Document requirements and design before implementation. Business needs → techn
 ## Workflow
 
 1. Create `specs/{feature-name}/`
-2. Draft `requirements.md` (user stories + EARS acceptance criteria)
-3. Detail requirements through Q&A (batch 3–5 related questions)
+2. Draft `requirements.md` (user stories + [EARS acceptance criteria](./ears-format.md))
+3. Detail requirements through Q&A (batch 3–5 related questions, see [detailing loop](./ears-format.md#requirements-detailing-loop))
 4. Get stakeholder approval
 5. Draft `design.md` (architecture, algorithms, test strategy, deployment)
 6. Generate `tasks.md` (numbered, dependency graph, each task = impl + tests)
 7. Execute tasks in dependency order
+
+When requirements change mid-implementation, follow the [change management process](./change-management.md).
 
 ## Automation
 
 When the user provides a feature request, automatically:
 
 1. **Extract user stories** — "As a [role], I want [feature], so that [benefit]". Identify all roles; one story per distinct capability.
-2. **Generate EARS acceptance criteria** — see [ears-format.md](./ears-format.md).
+2. **Generate EARS acceptance criteria** — see [EARS format guide](./ears-format.md) for templates and the requirements detailing loop.
 3. **Identify edge cases** — boundaries (empty, zero, max), errors (network, invalid input), concurrency, performance.
-4. **Define correctness properties** — invariants that must always hold (data integrity, business rules, security).
+4. **Define correctness properties** — invariants that must always hold (data integrity, business rules, security). See [property-based testing](./ears-format.md#property-based-testing).
 5. **Create `requirements.md`** and iterate with user feedback before moving to design.
 
 ## Decision-Making: Ask vs. Infer
@@ -91,18 +93,12 @@ Every task ships with tests: unit, integration, property-based (for invariants),
 
 **Definition of Done:** implementation complete · all tests passing · edge cases covered · property tests passing (if applicable) · reviewed · docs updated.
 
-See [review-checklists.md](./review-checklists.md) for phase-by-phase criteria.
+See [review checklists](./review-checklists.md) for phase-by-phase criteria and best practices.
 
 ## Common Pitfalls
 
-- Vague acceptance criteria → use EARS format
-- Skipping requirements Q&A → enforce the detailing loop
+- Vague acceptance criteria → use [EARS format](./ears-format.md)
+- Skipping requirements Q&A → enforce the [detailing loop](./ears-format.md#requirements-detailing-loop)
 - Implementing before design approval → get sign-off first
 - Code without tests → write tests alongside implementation
-- Stale tests after requirement changes → update tests first, then code
-
-## See Also
-
-- [ears-format.md](./ears-format.md) — EARS templates, requirements detailing loop, property-based testing
-- [change-management.md](./change-management.md) — Handling requirement changes mid-implementation
-- [review-checklists.md](./review-checklists.md) — Phase-by-phase review criteria, NFRs, best practices
+- Stale tests after requirement changes → follow [change management](./change-management.md) to update tests first
