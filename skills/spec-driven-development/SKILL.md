@@ -5,82 +5,89 @@ description: Use when starting a new feature with clear business needs, when sta
 
 # Spec-Driven Development
 
-## Overview
-
-Document requirements and design before implementation. Business needs → technical solution. Reduces rework, ensures alignment, and creates testable specifications.
-
 ## When to Use
-
 - New features with clear business needs
 - Projects requiring stakeholder alignment or documentation
 - Features with compliance or formal testing requirements
 
-**When NOT to use:**
-- Trivial bug fixes or one-line changes
-- Exploratory prototypes meant to be discarded
-- Tasks where the spec would exceed the implementation
+**Skip when:** trivial bug fixes, exploratory prototypes, spec exceeds implementation effort
 
 ## Workflow
-
 1. Create `specs/{feature-name}/`
-2. Draft `requirements.md` (user stories + [EARS acceptance criteria](./ears-format.md))
-3. Detail requirements through Q&A (batch 3–5 related questions, see [detailing loop](./ears-format.md#requirements-detailing-loop))
+2. Draft `requirements.md` (user stories + EARS acceptance criteria)
+3. Detail requirements through Q&A (batch 3–5 questions)
 4. Get stakeholder approval
 5. Draft `design.md` (architecture, algorithms, test strategy, deployment)
 6. Generate `tasks.md` (numbered, dependency graph, each task = impl + tests)
 7. Execute tasks in dependency order
 
-When requirements change mid-implementation, follow the [change management process](./change-management.md).
+When requirements change mid-implementation → [change management](./change-management.md)
 
 ## Automation
+When user provides a feature request, MUST:
 
-When the user provides a feature request, you MUST automatically:
+1. **Extract user stories** — "As a [role], I want [feature], so that [benefit]". Identify ALL roles. One story per capability.
 
-1. **Extract user stories** — Convert request into "As a [role], I want [feature], so that [benefit]" format. Identify ALL user roles. Create ONE story per distinct capability.
+2. **Generate EARS acceptance criteria** — Per story using templates below.
 
-2. **Generate EARS acceptance criteria** — For EACH user story, create acceptance criteria using [EARS format](./ears-format.md). Use appropriate template (WHEN/IF/WHILE/WHERE/THE SHALL).
+3. **Identify edge cases** — Ask about boundaries (empty/zero/max), errors (network/invalid), concurrency, performance.
 
-3. **Identify edge cases** — Proactively ask about:
-   - Boundaries: empty, zero, max values
-   - Errors: network failures, invalid input
-   - Concurrency: simultaneous operations
-   - Performance: acceptable latency, throughput
+4. **Define correctness properties** — Invariants that MUST hold: data integrity, business logic, security.
 
-4. **Define correctness properties** — Extract invariants that MUST always hold:
-   - Data integrity rules (e.g., "balance never negative")
-   - Business logic constraints (e.g., "order total = sum of items")
-   - Security requirements (e.g., "only owner can delete")
-   
-   See [property-based testing](./ears-format.md#property-based-testing) for encoding as tests.
+5. **Create `requirements.md`** — Introduction/glossary, user stories, EARS criteria, edge cases, correctness properties, NFRs.
 
-5. **Create `requirements.md`** — Generate structured document with:
-   - Introduction and glossary
-   - User stories (from step 1)
-   - EARS acceptance criteria (from step 2)
-   - Edge cases (from step 3)
-   - Correctness properties (from step 4)
-   - Non-functional requirements (if applicable)
+6. **Iterate** — Present draft, refine, get explicit approval before design.
 
-6. **Iterate** — Present draft to user. Refine based on feedback. Get explicit approval before proceeding to design.
-
-**Validation:** Before moving to design, verify:
+**Validation before moving to design:**
 - [ ] All user stories follow correct format
 - [ ] All acceptance criteria use EARS templates
-- [ ] Edge cases documented for each requirement
+- [ ] Edge cases documented per requirement
 - [ ] At least one correctness property defined
 - [ ] User has explicitly approved
 
-## Decision-Making: Ask vs. Infer
+## EARS Format
+| Type | Template | Example |
+|------|----------|---------|
+| Event-Driven | WHEN [trigger] THE [system] SHALL [action] | WHEN user clicks submit, THE system SHALL validate all fields |
+| Conditional | IF [condition] THEN THE [system] SHALL [action] | IF password < 8 chars, THE system SHALL display error |
+| State-Based | WHILE [state] THE [system] SHALL [action] | WHILE processing payment, THE system SHALL show loading |
+| Feature-Specific | WHERE [feature] THE [system] SHALL [action] | WHERE user has admin role, THE system SHALL show admin panel |
+| Unconditional | THE [system] SHALL [action] | THE system SHALL log all auth attempts |
 
-See [asking-questions.md](./asking-questions.md) for complete guidelines on when to ask vs. infer and how to structure questions.
+### Detailing Loop
+For each requirement: Parse → Analyze (edge cases, assumptions, errors, success/failure) → Question user → Refine → Verify (testable, complete). Repeat.
 
-**Quick reference:**
-- Ask when: business logic ambiguous, multiple approaches, security/compliance, UX decisions
-- Infer when: industry standards, technical details, common patterns, obvious edge cases
-- Always batch 3-5 related questions together
+**Complete when:** EARS format used, all edge cases identified, error conditions specified, success/failure clear, testable.
+
+### Property-Based Testing
+- Identify invariants: `∀ input: condition(output) = true`
+- Encode as executable PBT test
+- Use for: data integrity, business rules, security properties, math properties
+
+## Asking Questions
+
+**Decision tree:**
+```
+Clear & unambiguous?
+├─ NO → Ask user
+└─ YES → Inferrable from standards?
+    ├─ YES → Infer, document assumption
+    └─ NO → Ask user
+```
+
+**Ask when:** ambiguous business logic, multiple valid approaches, security/compliance, UX decisions, unclear performance needs.
+
+**Infer when:** industry standards, technical details (schema, API), common error patterns, obvious edge cases (empty, null, zero).
+
+**How to ask:** State question → Context → Options (2–3, ordered most→least recommended, label top "(Recommended)") → Wait for choice.
+
+**Batching:**
+- Group related questions
+- Present 3–5 per batch
+- Prioritize critical ambiguities first
+- NEVER ask one at a time
 
 ## Document Structure
-
 ```
 specs/{feature-name}/
 ├── requirements.md   # User stories + EARS criteria + edge cases + properties + NFRs
@@ -89,17 +96,56 @@ specs/{feature-name}/
 ```
 
 ## Test Coverage
+Every task ships with: unit tests, integration tests, property-based tests (invariants), edge-case tests.
 
-Every task ships with tests: unit, integration, property-based (for invariants), and edge-case tests from the Q&A.
+## Review Checklists
 
-**Definition of Done:** implementation complete · all tests passing · edge cases covered · property tests passing (if applicable) · reviewed · docs updated.
+### After Requirements
+- [ ] All stories follow `As a [role], I want [feature], so that [benefit]`
+- [ ] All acceptance criteria use EARS format
+- [ ] Edge cases and error conditions documented
+- [ ] Correctness properties defined
+- [ ] NFRs specified (if applicable)
+- [ ] Stakeholders approved
 
-See [review checklists](./review-checklists.md) for phase-by-phase criteria and best practices.
+### After Design
+- [ ] Architecture addresses all requirements
+- [ ] Technology choices justified
+- [ ] Testing strategy defined with coverage targets
+- [ ] Migration/deployment plan documented
+- [ ] Reviewed by technical lead
+
+### After Tasks
+- [ ] Task dependency graph clear and correct
+- [ ] Each task includes implementation + tests
+- [ ] Tasks sized 1–4 hours each
+- [ ] Acceptance criteria defined per task
+
+### Definition of Done (per task)
+- [ ] Implementation complete
+- [ ] All tests written and passing
+- [ ] Edge cases covered
+- [ ] Property tests passing (if applicable)
+- [ ] Code reviewed
+- [ ] Documentation updated
+
+### Non-Functional Requirements (when applicable)
+- **Performance** — response time, throughput, resource usage
+- **Security** — auth, authorization, data protection, audit logging
+- **Scalability** — concurrent users, data volume, growth
+- **Reliability** — uptime, error rates, recovery time
+- **Accessibility** — WCAG level, keyboard nav, screen reader support
+- **Maintainability** — code quality standards, documentation
+- **Compatibility** — browsers, devices, OS, API versions
+
+### Best Practices
+- **Requirements:** Use EARS format, detail through Q&A, define properties early, document all edge cases
+- **Design:** High-level first then drill down, document decisions and tradeoffs, specify testing strategy
+- **Execution:** Follow dependency order, write tests before/with implementation, run full suite after each task, commit impl + tests together, maintain ≥80% coverage, update tests first on changes, add regression tests for bugs
 
 ## Common Pitfalls
-
-- Vague acceptance criteria → use [EARS format](./ears-format.md)
-- Skipping requirements Q&A → enforce the [detailing loop](./ears-format.md#requirements-detailing-loop)
+- Vague acceptance criteria → use EARS format
+- Skipping requirements Q&A → enforce detailing loop
 - Implementing before design approval → get sign-off first
 - Code without tests → write tests alongside implementation
-- Stale tests after requirement changes → follow [change management](./change-management.md) to update tests first
+- Stale tests after requirement changes → update tests first
