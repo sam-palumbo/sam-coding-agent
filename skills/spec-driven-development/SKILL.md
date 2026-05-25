@@ -15,7 +15,7 @@ description: Use when starting a new feature with clear business needs, when sta
 ## Workflow
 1. Create `specs/{feature-name}/`
 2. Draft `requirements.md` (user stories + EARS acceptance criteria)
-3. Detail requirements through Q&A (batch 3–5 questions)
+3. Detail requirements through Q&A
 4. Get stakeholder approval
 5. Draft `design.md` (architecture, algorithms, test strategy, deployment)
 6. Generate `tasks.md` (numbered, dependency graph, each task = impl + tests)
@@ -34,7 +34,7 @@ When user provides a feature request, MUST:
 
 4. **Define correctness properties** — Invariants that MUST hold: data integrity, business logic, security.
 
-5. **Create `requirements.md`** — Introduction/glossary, user stories, EARS criteria, edge cases, correctness properties, NFRs.
+5. **Create `requirements.md`** — Introduction/glossary, user stories, EARS criteria, edge cases, correctness properties.
 
 6. **Iterate** — Present draft, refine, get explicit approval before design.
 
@@ -81,16 +81,10 @@ Clear & unambiguous?
 
 **How to ask:** State question → Context → Options (2–3, ordered most→least recommended, label top "(Recommended)") → Wait for choice.
 
-**Batching:**
-- Group related questions
-- Present 3–5 per batch
-- Prioritize critical ambiguities first
-- NEVER ask one at a time
-
 ## Document Structure
 ```
 specs/{feature-name}/
-├── requirements.md   # User stories + EARS criteria + edge cases + properties + NFRs
+├── requirements.md   # User stories + EARS criteria + edge cases + properties
 ├── design.md         # Architecture + algorithms + tech choices + test strategy + deployment
 └── tasks.md          # Dependency graph + numbered tasks (impl + tests per task)
 ```
@@ -105,7 +99,6 @@ Every task ships with: unit tests, integration tests, property-based tests (inva
 - [ ] All acceptance criteria use EARS format
 - [ ] Edge cases and error conditions documented
 - [ ] Correctness properties defined
-- [ ] NFRs specified (if applicable)
 - [ ] Stakeholders approved
 
 ### After Design
@@ -128,15 +121,6 @@ Every task ships with: unit tests, integration tests, property-based tests (inva
 - [ ] Property tests passing (if applicable)
 - [ ] Code reviewed
 - [ ] Documentation updated
-
-### Non-Functional Requirements (when applicable)
-- **Performance** — response time, throughput, resource usage
-- **Security** — auth, authorization, data protection, audit logging
-- **Scalability** — concurrent users, data volume, growth
-- **Reliability** — uptime, error rates, recovery time
-- **Accessibility** — WCAG level, keyboard nav, screen reader support
-- **Maintainability** — code quality standards, documentation
-- **Compatibility** — browsers, devices, OS, API versions
 
 ### Best Practices
 - **Requirements:** Use EARS format, detail through Q&A, define properties early, document all edge cases
